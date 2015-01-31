@@ -1,15 +1,16 @@
-dripGap = 5; 
-outerWidth = 12;
-//$t =.5;
+//$t =1;
+dripGap = 5 + 5 * $t; 
+outerWidth = 12 +5 * $t;
+
 sourceHoseDiameter = 3;
-sourceHoseLength = 12 + 20 * $t;
+sourceHoseLength = 12 + 10 * $t;
 drainHoseLength = 10;
 
 extendTipLength = 0;// makes the tip longer without making it pointier 
 contactTipLength = 10 + 5 * $t; // as in the length of the pointy part, controls how pointy or blunt the tip is. 
 
 
-wallThickness = 1.5;
+wallThickness = 1.5 + 1*$t;
 echo($t);
 
 bottomTangLength = 10;
@@ -18,9 +19,12 @@ totalLength = sourceHoseLength + extendTipLength*2 +contactTipLength * 2 + dripG
 
 resolution = 40;
 
-wireHoleDiameter = 2;
+wireHoleDiameter = 2 +1 * -$t;
 tipWidth = wallThickness * 2 + sourceHoseDiameter;
 wickGap = .1;
+
+clipGap =1;
+
 module contactTip()
 {
 
@@ -84,7 +88,8 @@ module topCutBridge()
 {
 difference()
 	{
-	square([outerWidth,wireHoleDiameter * 3]);
+	translate([-clipGap-wallThickness,0,0])
+	square([outerWidth+clipGap+wallThickness,wireHoleDiameter * 3]);
 	translate([outerWidth/2 - sourceHoseDiameter/2,0,0])
 		square([sourceHoseDiameter,wireHoleDiameter * 3]);
 	translate([0,wireHoleDiameter * 1.5,0])
@@ -107,9 +112,11 @@ module outerBody()
 {
 union()
 	{
-	square([wallThickness,totalLength]);
+	square([wallThickness,totalLength]); // outer side wall
 	translate([outerWidth-wallThickness,0,0])
-		square([wallThickness,totalLength]);
+		square([wallThickness,totalLength]); // outer side wall
+	translate([-clipGap - wallThickness,0,0])
+		square([wallThickness,totalLength]);// clip wall
 
 	translate([outerWidth/2-tipWidth/2,bottomTangLength,0])
 		contactTip(); // bottom contactTip()
