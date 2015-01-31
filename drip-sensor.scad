@@ -1,15 +1,16 @@
 dripGap = 5; 
 outerWidth = 11;
-
+$t =1;
 sourceHoseDiameter = 3;
-sourceHoseLength = 22;
+sourceHoseLength = 12 + 10 * $t;
 drainHoseLength = 10;
 
 upperDripContactLength = 0;// note also added to by the sourceHoseContactTipLength
-sourceHoseContactTipLength = 10;
+sourceHoseContactTipLength = 5 + 5 * $t;
 lowerDripContactLength = 4;
 
 wallThickness = 2;
+echo($t);
 
 
 totalHeight = sourceHoseLength + upperDripContactLength + dripGap + lowerDripContactLength;
