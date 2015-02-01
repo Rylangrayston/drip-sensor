@@ -1,11 +1,11 @@
 //$t =1;
 dripGap = 5 + 5 * $t; 
 outerWidth = 12 +5 * $t;
-
+sheetThickness = 3;
 sourceHoseDiameter = 3;
-sourceHoseLength = 12 + 10 * $t;
+sourceHoseLength = 14 + 10 * $t;
 drainHoseLength = 10;
-
+wireHoleDiameter = 2 +1 * -$t;
 extendTipLength = 0;// makes the tip longer without making it pointier 
 contactTipLength = 10 + 5 * $t; // as in the length of the pointy part, controls how pointy or blunt the tip is. 
 
@@ -13,19 +13,39 @@ contactTipLength = 10 + 5 * $t; // as in the length of the pointy part, controls
 wallThickness = 1.5 + 1*$t;
 echo($t);
 
-bottomTangLength = 10;
-sourceHoseProtrusion= 10;
+bottomTangLength = outerWidth-wallThickness ;
+sourceHoseProtrusion= wallThickness * 2 + wireHoleDiameter + sheetThickness*2;
 totalLength = sourceHoseLength + extendTipLength*2 +contactTipLength * 2 + dripGap + bottomTangLength - sourceHoseProtrusion;
 
 resolution = 40;
 
-wireHoleDiameter = 2 +1 * -$t;
+
 tipWidth = wallThickness * 2 + sourceHoseDiameter;
 wickGap = .3;
 
 clipGap =1;
 
 sourceHoseRelifeHoleDiameter = sourceHoseDiameter *.7;
+ringGroveDeapth = wallThickness *.2;
+
+module sourceHoseRing()
+{
+	difference()
+	{	
+		translate([.05,0,0])
+		square([outerWidth- wallThickness*2-.1,outerWidth- wallThickness*2-.05]);
+		//circle(d = outerWidth- wallThickness*2, $fn = resolution);
+		translate([outerWidth-wallThickness *2 - sourceHoseDiameter -wallThickness/2, sourceHoseDiameter-ringGroveDeapth/2 +wallThickness/2,0])
+		circle(d = sourceHoseDiameter + wallThickness * 2 - ringGroveDeapth*2, $fn = resolution);
+		translate([wireHoleDiameter * 1.2 + wireHoleDiameter/4, outerWidth- wallThickness*2-wireHoleDiameter * 1.2 + wireHoleDiameter/4 , 0])
+			circle(d = wireHoleDiameter , $fn = resolution);
+
+		translate([wireHoleDiameter * 1.2 - wireHoleDiameter/4, outerWidth- wallThickness*2-wireHoleDiameter * 1.2 - wireHoleDiameter/4 , 0])
+			circle(d = wireHoleDiameter , $fn = resolution);
+	}
+}
+//sourceHoseRing();
+
 
 module contactTip()
 {
@@ -72,6 +92,13 @@ module sourceHoseContact()
 		}
 		translate([wallThickness,0,0])
 			square([sourceHoseDiameter, sourceHoseLength]);
+		translate([0,sourceHoseLength + extendTipLength- sheetThickness*2 +.25,0])
+		{
+			square([ringGroveDeapth, sheetThickness]);
+			translate([wallThickness * 2 + sourceHoseDiameter - ringGroveDeapth,0,0])
+				square([ringGroveDeapth, sheetThickness]);
+		}
+
 
 	}
 	
@@ -122,6 +149,8 @@ union()
 		square([wallThickness,totalLength]); // outer side wall
 	translate([-clipGap - wallThickness,0,0])
 		square([wallThickness,totalLength]);// clip wall
+	translate([wallThickness,0,0])
+	sourceHoseRing();
 
 	translate([outerWidth/2-tipWidth/2,bottomTangLength,0])
 		contactTip(); // bottom contactTip()
