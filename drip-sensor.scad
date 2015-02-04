@@ -1,5 +1,5 @@
 //$t =1;
-ringGroveHeight = 1; // NOTE: this variable is a bad fix its not parametricly placed and it needs fixing!! it should position the ring so that it clips in flush with the top of the dripper. 
+
 
 dripGap = 5 + 5 * $t; 
 outerWidth = 12 +5 * $t;
@@ -28,25 +28,9 @@ wickGap = .3;
 clipGap =1;
 
 sourceHoseRelifeHoleDiameter = sourceHoseDiameter *.7;
-ringGroveDeapth = wallThickness *.2;
 
-module sourceHoseRing()
-{
-	difference()
-	{	
-		translate([.05,0,0])
-		square([outerWidth- wallThickness*2-.1,outerWidth- wallThickness*2-.05]);
-		//circle(d = outerWidth- wallThickness*2, $fn = resolution);
-		translate([outerWidth-wallThickness *2 - sourceHoseDiameter -wallThickness/2, sourceHoseDiameter-ringGroveDeapth/2 +wallThickness/2,0])
-		circle(d = sourceHoseDiameter + wallThickness * 2 - ringGroveDeapth*2, $fn = resolution);
-		translate([wireHoleDiameter * 1.2 + wireHoleDiameter/4, outerWidth- wallThickness*2-wireHoleDiameter * 1.2 + wireHoleDiameter/4 , 0])
-			circle(d = wireHoleDiameter , $fn = resolution);
 
-		translate([wireHoleDiameter * 1.2 - wireHoleDiameter/4, outerWidth- wallThickness*2-wireHoleDiameter * 1.2 - wireHoleDiameter/4 , 0])
-			circle(d = wireHoleDiameter , $fn = resolution);
-	}
-}
-//sourceHoseRing();
+
 
 
 module contactTip()
@@ -94,12 +78,7 @@ module sourceHoseContact()
 		}
 		translate([wallThickness,0,0])
 			square([sourceHoseDiameter, sourceHoseLength]);
-		translate([0,sourceHoseLength + extendTipLength- sheetThickness*2 +ringGroveHeight,0])
-		{
-			square([ringGroveDeapth, sheetThickness]);
-			translate([wallThickness * 2 + sourceHoseDiameter - ringGroveDeapth,0,0])
-				square([ringGroveDeapth, sheetThickness]);
-		}
+
 
 
 	}
@@ -151,8 +130,7 @@ union()
 		square([wallThickness,totalLength]); // outer side wall
 	translate([-clipGap - wallThickness,0,0])
 		square([wallThickness,totalLength]);// clip wall
-	translate([wallThickness,0,0])
-	sourceHoseRing();
+
 
 	translate([outerWidth/2-tipWidth/2,bottomTangLength,0])
 		contactTip(); // bottom contactTip()
