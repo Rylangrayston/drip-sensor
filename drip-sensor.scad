@@ -1,7 +1,7 @@
 //$t =1;
 
 
-dripGap = 9; 
+dripGap = 6.3; 
 outerWidth = 12;
 sheetThickness = 3;
 sourceHoseDiameter =(1/16) * 25.4+ .5;
@@ -23,7 +23,7 @@ resolution = 40;
 
 
 tipWidth = wallThickness * 2 + sourceHoseDiameter;
-wickGap = .2;
+wickGap = .3;
 
 clipGap =.01;
 
@@ -66,18 +66,17 @@ module contactTip()
 
 
 
-module sourceHoseContact()
+module sourceHoseReciver()
 {
 
 	difference()
 	{
-		union()
-		{
-			square([wallThickness * 2 + sourceHoseDiameter, sourceHoseLength + extendTipLength]);
-
-		}
+		square([wallThickness * 2 + sourceHoseDiameter, sourceHoseLength + extendTipLength]);
 		translate([wallThickness,0,0])
 			square([sourceHoseDiameter, sourceHoseLength]);
+		translate([(wallThickness * 2 + sourceHoseDiameter)/2,sourceHoseLength,0])
+		rotate(30)	
+			circle((wallThickness * 2 + sourceHoseDiameter)* .8 , $fn = 3, center = true);
 
 
 
@@ -149,7 +148,7 @@ union()
 			circle(d = sourceHoseRelifeHoleDiameter, $fn = resolution); // so that you cant pug the hose on a flat surface. 
 	}
 	translate([outerWidth/2-tipWidth/2,bottomTangLength+ contactTipLength*2 + dripGap,0])
-	sourceHoseContact();
+	sourceHoseReciver();
 	translate([0,totalLength,0])
 	topCutBridge();
 	}
