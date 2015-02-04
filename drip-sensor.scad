@@ -1,4 +1,6 @@
 //$t =1;
+ringGroveHeight = 1; // NOTE: this variable is a bad fix its not parametricly placed and it needs fixing!! it should position the ring so that it clips in flush with the top of the dripper. 
+
 dripGap = 5 + 5 * $t; 
 outerWidth = 12 +5 * $t;
 sheetThickness = 3;
@@ -92,7 +94,7 @@ module sourceHoseContact()
 		}
 		translate([wallThickness,0,0])
 			square([sourceHoseDiameter, sourceHoseLength]);
-		translate([0,sourceHoseLength + extendTipLength- sheetThickness*2 +.25,0])
+		translate([0,sourceHoseLength + extendTipLength- sheetThickness*2 +ringGroveHeight,0])
 		{
 			square([ringGroveDeapth, sheetThickness]);
 			translate([wallThickness * 2 + sourceHoseDiameter - ringGroveDeapth,0,0])
