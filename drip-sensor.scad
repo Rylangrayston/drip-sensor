@@ -1,18 +1,18 @@
 //$t =1;
 
 
-dripGap = 5 + 5 * $t; 
-outerWidth = 12 +5 * $t;
+dripGap = 9; 
+outerWidth = 12;
 sheetThickness = 3;
-sourceHoseDiameter = 3;
-sourceHoseLength = 14 + 10 * $t;
+sourceHoseDiameter =(1/16) * 25.4+ .5;
+sourceHoseLength = 20;
 drainHoseLength = 10;
-wireHoleDiameter = 2 +1 * -$t;
+wireHoleDiameter = .7;
 extendTipLength = 0;// makes the tip longer without making it pointier 
-contactTipLength = 10 + 5 * $t; // as in the length of the pointy part, controls how pointy or blunt the tip is. 
+contactTipLength =6; // as in the length of the pointy part, controls how pointy or blunt the tip is. 
 
 
-wallThickness = 1.5 + 1*$t;
+wallThickness = 1.7;
 echo($t);
 
 bottomTangLength = outerWidth-wallThickness ;
@@ -23,9 +23,9 @@ resolution = 40;
 
 
 tipWidth = wallThickness * 2 + sourceHoseDiameter;
-wickGap = .3;
+wickGap = .2;
 
-clipGap =1;
+clipGap =.01;
 
 sourceHoseRelifeHoleDiameter = sourceHoseDiameter *.7;
 
