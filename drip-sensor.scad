@@ -94,6 +94,8 @@ difference()
 	square([outerWidth,wallThickness*2]);
 	translate([outerWidth/2 - cut/2,0,0])
 		square([cut,wallThickness*2]);
+	
+
 	}
 }
 
@@ -123,6 +125,8 @@ difference()
 
 module outerBody()
 {
+difference()
+	{
 union()
 	{
 	square([wallThickness,totalLength]); // outer side wall
@@ -149,7 +153,11 @@ union()
 	translate([0,totalLength,0])
 	topCutBridge();
 	}
+	rotate(90)
+	circle(d = wallThickness*3, $fn = 3); // cutts v shaped grove in clip opening
 }
+}
+
 outerBody();
 module dripSensor()
 {
