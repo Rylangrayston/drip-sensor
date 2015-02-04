@@ -47,13 +47,13 @@ module contactTip()
 		translate([tipWidth/2, extendTipLength + contactTipLength ,0])
 		{
 			circle(d = wireHoleDiameter, $fn = resolution); // wire holes:
-			translate([0,-wireHoleDiameter*2,0])
+			translate([0,-wireHoleDiameter*3.5,0])
 			{	
 				translate([-wickGap/2,-extendTipLength - contactTipLength ,0])
 				square([wickGap,extendTipLength + contactTipLength]); // wicking grove 
 				circle(d = wireHoleDiameter, $fn = resolution);	
 			}
-			translate([0,-wireHoleDiameter*4,0])
+			translate([0,-wireHoleDiameter*5.5,0])
 				circle(d = wireHoleDiameter, $fn = resolution);	
 	
 		}
@@ -154,7 +154,9 @@ union()
 	topCutBridge();
 	}
 	rotate(90)
-	circle(d = wallThickness*3, $fn = 3); // cutts v shaped grove in clip opening
+		circle(d = wallThickness*3, $fn = 3); // cutts v shaped grove in clip opening
+	translate([wallThickness/2,bottomTangLength,0])
+			circle(d = wireHoleDiameter, $fn = resolution);
 }
 }
 
