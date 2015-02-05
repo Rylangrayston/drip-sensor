@@ -1,5 +1,5 @@
 //$t =1;
-previousCommitHash = "0bbafb8";
+previousCommitHash = "a38dde9";
 
 dripGap = 6.3; 
 outerWidth = 12;
@@ -125,7 +125,7 @@ difference()
 //sourceHoseContact();
 //contactTip();
 
-module outerBody()
+module outerBody(iter)
 {
 difference()
 	{
@@ -177,14 +177,16 @@ module etchInfo(){
         text(str("DripGap=",dripGap), size = wallThickness);
         translate([0,wallThickness* 1.5,0])
         text(previousCommitHash, size = wallThickness);
+        
     }
     
         
         }
 //etchInfo();
-    
-outerBody();
-module dripSensor()
-{
-	
+        
+rotate(53)        
+for( i = [1:1:5]){
+    echo(i);
+    translate([i*16,i*12,0])
+    outerBody(iter = i);
 }
