@@ -1,5 +1,5 @@
 //$t =1;
-
+previousCommitHash = "0bbafb8";
 
 dripGap = 6.3; 
 outerWidth = 12;
@@ -28,6 +28,9 @@ wickGap = .3;
 clipGap =.01;
 
 sourceHoseRelifeHoleDiameter = sourceHoseDiameter *.7;
+
+etchInfoSizeX = 17 ;
+etchInfoSizeY = 5;
 
 
 
@@ -151,14 +154,35 @@ union()
 	sourceHoseReciver();
 	translate([0,totalLength,0])
 	topCutBridge();
+        
+        
+        translate([-etchInfoSizeX,totalLength,0])
+        etchInfo();
 	}
 	rotate(90)
 		circle(d = wallThickness*3, $fn = 3); // cutts v shaped grove in clip opening
 	translate([wallThickness/2,bottomTangLength,0])
 			circle(d = wireHoleDiameter, $fn = resolution);
-}
+
+
+    }
 }
 
+
+
+module etchInfo(){
+    difference(){
+        square([etchInfoSizeX,etchInfoSizeY]);
+        translate([0,wallThickness*.25,0])
+        text(str("DripGap=",dripGap), size = wallThickness);
+        translate([0,wallThickness* 1.5,0])
+        text(previousCommitHash, size = wallThickness);
+    }
+    
+        
+        }
+//etchInfo();
+    
 outerBody();
 module dripSensor()
 {
